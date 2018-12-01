@@ -2,6 +2,9 @@
   "name": "advent-of-code-2018",
   "version": "1.0.0",
   "repository": "git@github.com:Vazerthon/advent-of-code-2018.git",
+  "scripts": {
+    "one": "babel day-one.js | node"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
