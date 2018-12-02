@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "repository": "git@github.com:Vazerthon/advent-of-code-2018.git",
   "scripts": {
-    "one": "babel day-one.js | node"
+    "one": "babel day-one.js | node",
+    "two": "babel day-two.js | node"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0"
+  },
+  "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }
