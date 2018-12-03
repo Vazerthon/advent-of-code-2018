@@ -4,7 +4,8 @@
   "repository": "git@github.com:Vazerthon/advent-of-code-2018.git",
   "scripts": {
     "one": "babel day-one.js | node",
-    "two": "babel day-two.js | node"
+    "two": "babel day-two.js | node",
+    "three": "babel day-three.js | node"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
