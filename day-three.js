@@ -1295,7 +1295,7 @@ const getUsedSpaces = claim => {
 
   for (let x = claim.left; x < claim.width + claim.left; x++) {
     for (let y = claim.top; y < claim.height + claim.top; y++) {
-        spaces.push(`${x}${y}`)
+        spaces.push(parseInt(`${x}${y}`))
     }     
   }
 
