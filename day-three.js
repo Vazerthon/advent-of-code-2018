@@ -1281,7 +1281,7 @@ const inputs = [
   { id: 1280, left: 26, top: 933, width: 29, height: 12 },
   { id: 1281, left: 815, top: 755, width: 13, height: 22 },
   { id: 1282, left: 786, top: 950, width: 23, height: 21 },
-  { id: 1283, left: 403, top: 978, width: 29, height: 19 },
+  { id: 1283, left: 403, top: 978, width: 29, height: 19 }
 ]
 
 const test = [
@@ -1290,25 +1290,26 @@ const test = [
   { id: 3, left: 5, top: 5, width: 2, height: 2 },
 ]
 
-const getTakenPositions = claim => {
-  let positions = []
+const getUsedSpaces = claim => {
+  const spaces = []
 
   for (let x = claim.left; x < claim.width + claim.left; x++) {
     for (let y = claim.top; y < claim.height + claim.top; y++) {
-      positions.push(`x: ${x}, y: ${y}`)
-    }
+        spaces.push(parseInt(`${x}${y}`))
+    }     
   }
 
-  return positions
+  return spaces;
 }
 
-const run = data => data
-  .map(claim => ({ ...claim, positions: getTakenPositions(claim) }))
-  .filter((claim, _, claims) => {
-    const otherClaimPositions = claims.filter(c => c.id !== claim.id).map(c => c.positions).reduce((p, c) => [...p, ...c], [])
-    return otherClaimPositions.some(c => claim.positions.some(p => c === p))
-  })
+const addUsedSpaces = claim => ({ ...claim, spaces: getUsedSpaces(claim) })
 
-const partOne = run(inputs).length
+const getDupes = data => data
+  .map(addUsedSpaces)
+  .map(({ spaces }) => spaces)
+  .reduce((p, c) => [...p, ...c])
+  .filter((v, _, all) => all.filter(x => x === v).length >= 2)
 
-console.log(partOne)
+const run = data => [...new Set(getDupes(data))].length
+
+console.log(run(inputs))
