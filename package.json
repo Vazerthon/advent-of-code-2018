@@ -5,7 +5,8 @@
   "scripts": {
     "one": "babel day-one.js | node",
     "two": "babel day-two.js | node",
-    "three": "babel day-three.js | node"
+    "three": "babel day-three.js | node",
+    "four": "babel day-four.js | node"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
