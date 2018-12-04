@@ -1290,26 +1290,39 @@ const test = [
   { id: 3, left: 5, top: 5, width: 2, height: 2 },
 ]
 
-const getUsedSpaces = claim => {
-  const spaces = []
+const buildGrid = claims => {
+  const grid = []
+
+  claims.forEach(claim => {
+    for (let x = claim.left; x < claim.width + claim.left; x++) {
+      if (!grid[x]) { grid[x] = [] }
+      for (let y = claim.top; y < claim.height + claim.top; y++) {
+        const cell = grid[x][y] || 0
+        grid[x][y] = cell + 1
+      }     
+    }
+  })
+
+  return grid
+}
+
+// const partOneResult = buildGrid(test)
+//   .map(row => row.filter(cell => cell >= 2))
+//   .map(row => row.length)
+//   .reduce((p, c) => p + c, 0)
+  
+const runPartTwo = (data, overlapGrid) => data.forEach(claim => {
+  let hasOverlaps = false;
 
   for (let x = claim.left; x < claim.width + claim.left; x++) {
     for (let y = claim.top; y < claim.height + claim.top; y++) {
-        spaces.push(parseInt(`${x}${y}`))
-    }     
+      if (overlapGrid[x][y] > 1) { hasOverlaps = true }
+    }
   }
 
-  return spaces;
-}
+  if (!hasOverlaps) { console.log(claim.id) }
+})
 
-const addUsedSpaces = claim => ({ ...claim, spaces: getUsedSpaces(claim) })
+runPartTwo(inputs, buildGrid(inputs))
 
-const getDupes = data => data
-  .map(addUsedSpaces)
-  .map(({ spaces }) => spaces)
-  .reduce((p, c) => [...p, ...c])
-  .filter((v, _, all) => all.filter(x => x === v).length >= 2)
-
-const run = data => [...new Set(getDupes(data))].length
-
-console.log(run(inputs))
+// console.log(partOneResult)
